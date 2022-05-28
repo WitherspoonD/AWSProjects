@@ -6,5 +6,5 @@ Description: >
   A much easier to follow tutorial than AWS' own.
 
 Resources:
-  s3Bucket:
-    Type: AWS::s3::Bucket
+  S3Bucket:
+    Type: AWS::S3::Bucket
