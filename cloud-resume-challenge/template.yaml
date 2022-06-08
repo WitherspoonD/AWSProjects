@@ -18,6 +18,19 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: myresume.html # custom for my project
       BucketName: witherspoononline.com # custom for my project
+  
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: cloud-resume-challenge
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        AttributeName: "ID"
+        AttributeType: "S"
+      KeySchema:
+        AttributeName: "ID"
+        KeyType: "HASH"
+
 
   MyRoute53Record:
     Type: "AWS::Route53::RecordSetGroup"
