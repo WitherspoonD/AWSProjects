@@ -32,7 +32,7 @@ jobs:
 
       - name: Upload files to S3 with AWS CLI
         run: |
-          aws s3 cp ~/OneDrive/Documents/Git/AWSProjects/cloud-resume-challenge/front_end/style.css s3://witherspoononline.com 
+          aws s3 ls 
 
 # on:
 #   push:
