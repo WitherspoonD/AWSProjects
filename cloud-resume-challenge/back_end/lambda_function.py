@@ -1,4 +1,5 @@
-import boto3, json
+import boto3 
+import json
 
 client = boto3.client('dynamodb')
 TableName = 'cloudResumeCounter'
