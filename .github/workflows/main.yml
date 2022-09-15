@@ -35,5 +35,5 @@ jobs:
           aws s3 sync cloud-resume-challenge/ s3://${{ secrets.S3_BUCKET }} --delete 
       
       - name: Create invalidation
-          run: |
+        run: |
             aws cloudfront create-invalidation --distribution-id E2QK4AA46LR76F --paths '/*'
