@@ -20,7 +20,7 @@ jobs:
       # - name: Install dependencies
       #   run: npm ci
 
-      #- name: Build the website
+      #- name: Build the websites
       #  run: npx @11ty/eleventy
       
       - name: Configure AWS Credentials
@@ -32,7 +32,7 @@ jobs:
 
       - name: Upload files to S3 with AWS CLI
         run: |
-          aws s3 sync my-sam-app/ s3://witherspoononline.com/ --delete 
+          aws s3 sync my-sam-app/ s3://${{ secrets.S3_BUCKET }} --delete 
 
 # on:
 #   push:
