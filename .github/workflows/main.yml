@@ -32,7 +32,7 @@ jobs:
 
       - name: Upload files to S3 with AWS CLI
         run: |
-          aws s3 cp C:\Users\Desmond\OneDrive\Documents\Git\AWSProjects\cloud-resume-challenge\front_end\style.css s3://witherspoononline.com 
+          aws s3 cp C:/Users/Desmond/OneDrive/Documents/Git/AWSProjects/cloud-resume-challenge/front_end/style.css s3://witherspoononline.com 
 
 # on:
 #   push:
@@ -56,4 +56,4 @@ jobs:
 
 #       - name: Upload files to S3 with AWS CLI
 #         run: |
-#           aws s3 cp C:\Users\Desmond\OneDrive\Documents\Git\AWSProjects\cloud-resume-challenge\front_end\style.css s3://${{ secrets.S3_BUCKET }} 
+#           aws s3 cp C:/Users/Desmond/OneDrive/Documents/Git/AWSProjects/cloud-resume-challenge/front_end/style.css s3://${{ secrets.S3_BUCKET }} 
