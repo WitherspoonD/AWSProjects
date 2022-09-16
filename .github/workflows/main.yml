@@ -44,4 +44,4 @@ jobs:
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
    # - name: Create invalidation
-   #     run: aws cloudfront create-invalidation --distribution-id E2QK4AA46LR76F --paths '/*'
+   #      run: aws cloudfront create-invalidation --distribution-id E2QK4AA46LR76F --paths '/*'
