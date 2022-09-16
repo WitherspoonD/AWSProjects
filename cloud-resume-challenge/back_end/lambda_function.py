@@ -1,4 +1,4 @@
-# import boto3 
+# import boto3 c 
 import json
 
 client = boto3.client('dynamodb')
