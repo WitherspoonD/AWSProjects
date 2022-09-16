@@ -37,3 +37,8 @@ jobs:
       - name: Create invalidation
         run: |
             aws cloudfront create-invalidation --distribution-id E2QK4AA46LR76F --paths '/*'
+          with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'   # optional: defaults to us-east-1 
+          
