@@ -1,5 +1,6 @@
 let url = new URL(
-  "https://32dyhayxu7.execute-api.us-east-1.amazonaws.com/prod/increment"
+  // "https://32dyhayxu7.execute-api.us-east-1.amazonaws.com/prod/increment"
+  "https://hgth16ow1m.execute-api.us-east-1.amazonaws.com/prod/count"
 );
 
 (async () => {
