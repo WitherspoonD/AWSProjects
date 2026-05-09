@@ -7,5 +7,5 @@ let url = new URL(
   let response = await fetch(url);
   let responseText = await response.json();
 
-  document.getElementById("count").innerHTML = responseText;
+  document.getElementById("count").innerHTML = responseText.count;
 })();
