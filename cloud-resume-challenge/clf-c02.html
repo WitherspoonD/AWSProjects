@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CLF-C02 Second Pass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;}
+  html,body{height:auto;}
+  :root{
+    --bg:#EEF1F4;
+    --surface:#FFFFFF;
+    --surface-2:#F7F9FA;
+    --ink:#13202B;
+    --ink-muted:#55677A;
+    --ink-faint:#8496A6;
+    --line:#D8DFE5;
+    --line-strong:#C2CCD4;
+    --accent:#B4790E;
+    --accent-ink:#6B4A0C;
+    --accent-soft:#F3E3C4;
+    --correct:#1F7A4D;
+    --correct-soft:#DCF0E4;
+    --incorrect:#C0392B;
+    --incorrect-soft:#FBE1DE;
+    --domain-concepts:#2A6F97;
+    --domain-concepts-soft:#DDEAF2;
+    --domain-security:#6B4E9C;
+    --domain-security-soft:#E9E2F3;
+    --domain-tech:#1E7C77;
+    --domain-tech-soft:#DBEDEB;
+    --domain-billing:#B65C23;
+    --domain-billing-soft:#F3E0D2;
+    --shadow: 0 1px 2px rgba(19,32,43,0.06), 0 8px 24px -12px rgba(19,32,43,0.18);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E161D;
+      --surface:#16212B;
+      --surface-2:#1B2830;
+      --ink:#E8EDF1;
+      --ink-muted:#9AACB9;
+      --ink-faint:#6E828F;
+      --line:#2A3944;
+      --line-strong:#39505E;
+      --accent:#E0AC3F;
+      --accent-ink:#F5D693;
+      --accent-soft:#3A2E14;
+      --correct:#49B586;
+      --correct-soft:#123425;
+      --incorrect:#E17364;
+      --incorrect-soft:#3A1C18;
+      --domain-concepts:#6FB2DA;
+      --domain-concepts-soft:#132A38;
+      --domain-security:#B79EDE;
+      --domain-security-soft:#241C38;
+      --domain-tech:#5CC2B9;
+      --domain-tech-soft:#0F2C2A;
+      --domain-billing:#E39A63;
+      --domain-billing-soft:#33220F;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E161D;
+    --surface:#16212B;
+    --surface-2:#1B2830;
+    --ink:#E8EDF1;
+    --ink-muted:#9AACB9;
+    --ink-faint:#6E828F;
+    --line:#2A3944;
+    --line-strong:#39505E;
+    --accent:#E0AC3F;
+    --accent-ink:#F5D693;
+    --accent-soft:#3A2E14;
+    --correct:#49B586;
+    --correct-soft:#123425;
+    --incorrect:#E17364;
+    --incorrect-soft:#3A1C18;
+    --domain-concepts:#6FB2DA;
+    --domain-concepts-soft:#132A38;
+    --domain-security:#B79EDE;
+    --domain-security-soft:#241C38;
+    --domain-tech:#5CC2B9;
+    --domain-tech-soft:#0F2C2A;
+    --domain-billing:#E39A63;
+    --domain-billing-soft:#33220F;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    padding-inline:16px;
+    padding-block:28px 48px;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  h1,h2,h3{
+    font-family:'Source Serif 4', Georgia, serif;
+    text-wrap:balance;
+    margin:0;
+    color:var(--ink);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+  .muted{color:var(--ink-muted);}
+  .tabular{font-variant-numeric:tabular-nums; font-family:'IBM Plex Mono', monospace;}
+
+  /* ---------- header / masthead ---------- */
+  .masthead{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:24px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .masthead h1{font-size:28px; font-weight:700; line-height:1.15;}
+  .masthead p{margin:0; color:var(--ink-muted); font-size:14.5px; line-height:1.55; max-width:56ch;}
+
+  /* ---------- source report table ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px;
+    box-shadow:var(--shadow);
+  }
+  .card h2{font-size:16px; font-weight:600; margin-bottom:2px;}
+  .card .card-sub{font-size:13px; color:var(--ink-muted); margin-bottom:14px;}
+
+  table.report{width:100%; border-collapse:collapse; font-size:13.5px;}
+  table.report th{
+    text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.04em;
+    text-transform:uppercase; color:var(--ink-faint); font-weight:600; padding:0 8px 8px 0; border-bottom:1px solid var(--line);
+  }
+  table.report td{padding:9px 8px 9px 0; border-bottom:1px solid var(--line); color:var(--ink);}
+  table.report tr:last-child td{border-bottom:none;}
+  table.report td.num{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; text-align:right;}
+  .overflow-x{overflow-x:auto;}
+
+  /* ---------- domain bars ---------- */
+  .domain-row{display:flex; align-items:center; gap:12px; padding:9px 0;}
+  .domain-row:not(:last-child){border-bottom:1px solid var(--line);}
+  .domain-dot{width:9px; height:9px; border-radius:50%; flex:none;}
+  .domain-name{flex:1; font-size:13.5px; font-weight:500;}
+  .domain-count{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-muted); width:38px; text-align:right; flex:none;}
+  .domain-bar-track{flex:2; height:8px; border-radius:5px; background:var(--surface-2); overflow:hidden; min-width:60px;}
+  .domain-bar-fill{height:100%; border-radius:5px;}
+
+  /* ---------- domain filter chips ---------- */
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    display:flex; align-items:center; gap:6px;
+    border:1px solid var(--line-strong); background:var(--surface-2); color:var(--ink-muted);
+    border-radius:999px; padding:7px 13px 7px 10px; font-size:13px; font-weight:500;
+    cursor:pointer; user-select:none; transition:background .12s,color .12s,border-color .12s;
+  }
+  .chip .domain-dot{opacity:0.4;}
+  .chip.active{background:var(--surface); color:var(--ink); border-color:var(--line-strong);}
+  .chip.active .domain-dot{opacity:1;}
+  .chip:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  .option-row{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .toggle-row{display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--ink-muted);}
+  .switch{
+    position:relative; width:38px; height:22px; border-radius:999px; background:var(--line-strong);
+    border:none; cursor:pointer; flex:none; transition:background .15s;
+  }
+  .switch::after{
+    content:''; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%;
+    background:var(--surface); transition:transform .15s; box-shadow:0 1px 2px rgba(0,0,0,0.25);
+  }
+  .switch.on{background:var(--accent);}
+  .switch.on::after{transform:translateX(16px);}
+
+  button.primary{
+    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--accent); color:#20140A; border:none; border-radius:10px;
+    padding:14px 20px; font-size:15px; font-weight:600; cursor:pointer;
+    box-shadow:var(--shadow); transition:filter .12s, transform .12s;
+  }
+  button.primary:hover{filter:brightness(1.06);}
+  button.primary:active{transform:translateY(1px);}
+  button.primary:disabled{opacity:0.45; cursor:not-allowed;}
+  :root[data-theme="dark"] button.primary, @media (prefers-color-scheme: dark){}
+  button.secondary{
+    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--surface-2); color:var(--ink); border:1px solid var(--line-strong); border-radius:10px;
+    padding:12px 18px; font-size:14px; font-weight:600; cursor:pointer;
+  }
+  button.link{
+    background:none; border:none; color:var(--ink-muted); font-size:13.5px; font-family:inherit;
+    cursor:pointer; padding:4px 0; text-decoration:underline; text-underline-offset:3px;
+  }
+  button:focus-visible, .chip:focus-visible, input:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  /* ---------- quiz view ---------- */
+  .quiz-topbar{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  .quiz-progress-track{flex:1; height:7px; border-radius:5px; background:var(--surface-2); overflow:hidden; border:1px solid var(--line);}
+  .quiz-progress-fill{height:100%; background:var(--accent); border-radius:5px; transition:width .25s ease;}
+  .quiz-score{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink-muted); white-space:nowrap;}
+
+  .domain-tag{
+    display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600;
+    padding:4px 10px; border-radius:999px; letter-spacing:0.02em;
+  }
+
+  .q-text{font-family:'Source Serif 4', Georgia, serif; font-size:19px; line-height:1.5; font-weight:600; text-wrap:balance;}
+
+  .option{
+    display:flex; align-items:flex-start; gap:12px;
+    border:1px solid var(--line-strong); background:var(--surface);
+    border-radius:10px; padding:13px 14px; cursor:pointer; font-size:14.5px; line-height:1.5;
+    transition:border-color .12s, background .12s;
+  }
+  .option:hover{border-color:var(--accent);}
+  .option.selected{border-color:var(--accent); background:var(--accent-soft); color:var(--ink);}
+  .option input{margin-top:2px; flex:none; accent-color:var(--accent); width:16px; height:16px;}
+  .option .opt-letter{
+    font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--ink-faint); flex:none; width:16px;
+  }
+  .option.locked{cursor:default;}
+  .option.reveal-correct{border-color:var(--correct); background:var(--correct-soft);}
+  .option.reveal-incorrect{border-color:var(--incorrect); background:var(--incorrect-soft);}
+  .option .mark{margin-left:auto; font-weight:700; font-size:13px; flex:none; font-family:'IBM Plex Mono',monospace;}
+  .option.reveal-correct .mark{color:var(--correct);}
+  .option.reveal-incorrect .mark{color:var(--incorrect);}
+
+  .explain{
+    border-left:3px solid var(--line-strong); background:var(--surface-2); border-radius:0 10px 10px 0;
+    padding:14px 16px; font-size:14px; line-height:1.6; color:var(--ink);
+  }
+  .explain.ok{border-left-color:var(--correct);}
+  .explain.no{border-left-color:var(--incorrect);}
+  .explain .verdict{font-weight:700; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.03em; text-transform:uppercase; display:block; margin-bottom:6px;}
+  .explain.ok .verdict{color:var(--correct);}
+  .explain.no .verdict{color:var(--incorrect);}
+
+  .quiz-actions{display:flex; justify-content:flex-end; gap:10px;}
+  .quiz-exit{align-self:flex-start;}
+
+  /* ---------- results ---------- */
+  .score-big{font-family:'IBM Plex Mono',monospace; font-size:52px; font-weight:600; line-height:1; letter-spacing:-0.01em;}
+  .score-pct{font-family:'IBM Plex Mono',monospace; font-size:16px; color:var(--ink-muted);}
+  .missed-item{border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-size:13.5px; display:flex; gap:10px; align-items:flex-start;}
+  .missed-item .domain-dot{margin-top:5px;}
+
+  [hidden]{display:none !important;}
+
+  @media (max-width: 480px){
+    .masthead h1{font-size:23px;}
+    .score-big{font-size:40px;}
+    .q-text{font-size:17px;}
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+(function(){
+  var QUESTIONS = [{"domain": "tech", "source": "Cloud Technology and Services", "text": "A startup is building a recommendation engine that suggests similar products based on customer preferences and item features. They've already used a machine learning model to generate vector embeddings for each product. Now, they need a managed service that can store these embeddings and perform fast similarity searches to return the most relevant products. Which AWS service is BEST suited for this requirement?", "options": {"A": "Amazon SageMaker", "B": "Amazon OpenSearch Service", "C": "Amazon Comprehend", "D": "Amazon Rekognition"}, "correct": ["B"], "multi": false, "explanation": "Amazon OpenSearch Service (formerly Elasticsearch) supports vector search using the k-NN plugin, allowing storage of high-dimensional vector embeddings and fast similarity search — ideal for recommendation engines, semantic search, image/document retrieval. SageMaker builds/trains models but doesn't store or search vectors itself. Comprehend is NLP (entities, sentiment) — no vector search. Rekognition is computer vision — no vector embedding search."}, {"domain": "concepts", "source": "Cloud Technology and Services", "text": "Your company operates in a multi-account AWS environment and wants to automate the setup of cloud infrastructure across development, staging, and production environments. You need a solution that enables you to: define infrastructure in code (IaC); use version control for your infrastructure templates; consistently deploy across environments; and build a custom application that interacts with AWS to automate specific internal workflows. Which two AWS services best fulfill all these requirements?", "options": {"A": "AWS Management Console", "B": "AWS Command Line Interface (CLI)", "C": "AWS Software Development Kits (SDKs)", "D": "AWS CloudFormation", "E": "AWS Service Quotas"}, "correct": ["C", "D"], "multi": true, "explanation": "AWS SDKs let developers build custom applications that interact with AWS programmatically (automation, integration). AWS CloudFormation lets you define infrastructure in code (JSON/YAML), version control via Git, and consistently deploy across environments. Console is manual/no automation. CLI allows scripted ops but no structured IaC templates or state management. Service Quotas just manages limits, not provisioning."}, {"domain": "tech", "source": "Cloud Technology and Services", "text": "A compliance team stores monthly reports that are rarely accessed in the first six months but must be available on request during that time. After six months, the files must be retained long-term for historical/audit purposes with minimal cost. Which Amazon S3 storage-class lifecycle setup best fits this need?", "options": {"A": "Store data for the first 6 months in S3 Standard & move data to Glacier after that.", "B": "Store data the first 6 months in S3 One Zone – IA & move data to Glacier after that.", "C": "Store data the first 6 months in S3 Standard IA & move data to Glacier after that.", "D": "Store data in Glacier & use expedited retrieval for accessing data immediately."}, "correct": ["A"], "multi": false, "explanation": "S3 Standard for the first 6 months ensures high availability/durability for on-request access; then move to Glacier for low-cost long-term retention. One Zone-IA trades resilience for cost — not ideal for compliance data. Standard-IA has retrieval costs/minimum duration, risky if accessed unpredictably. Glacier from day one adds retrieval delay/cost for early access needs."}, {"domain": "tech", "source": "Cloud Technology and Services", "text": "A company plans to move its existing data center infrastructure to AWS. Before starting the migration, the IT team needs a detailed understanding of the current on-premises applications, including server configurations, running processes, and application dependencies. Which AWS service should they use to automatically collect this data and help assess the environment for cloud migration?", "options": {"A": "AWS Application Discovery Service", "B": "AWS Application Migration Service", "C": "AWS Database Migration Service (AWS DMS)", "D": "AWS Migration Hub"}, "correct": ["A"], "multi": false, "explanation": "AWS Application Discovery Service automatically discovers servers, processes, installed applications, and dependencies, and collects usage/performance data for migration planning — the first step in migration. Application Migration Service is for actually migrating (lift-and-shift), not discovery. DMS migrates databases only. Migration Hub is a tracking/coordination dashboard, not a discovery tool."}, {"domain": "tech", "source": "Cloud Technology and Services", "text": "A company has set up an Amazon EC2 instance to host its web application. The operations team wants to ensure that administrators are notified immediately whenever the CPU utilization of the instance exceeds 70%. They decide to use Amazon SNS to send alerts. Which of the following can be subscribers to an SNS topic?", "options": {"A": "Email", "B": "Amazon S3", "C": "AWS Lambda", "D": "Amazon CloudWatch", "E": "Amazon DynamoDB streams"}, "correct": ["A", "C"], "multi": true, "explanation": "Valid SNS subscribers include Email, SMS, Lambda, SQS, HTTP/S endpoints. S3, CloudWatch, and DynamoDB Streams are typically publishers to SNS, not subscribers."}, {"domain": "security", "source": "Cloud Technology and Services", "text": "You are a database administrator at a startup that recently migrated its customer data to Amazon RDS for MySQL. Your team wants to focus on application development and reduce time spent on infrastructure maintenance. Which task is handled entirely by AWS as part of the shared responsibility model for Amazon RDS?", "options": {"A": "Monitoring the performance of your RDS instance", "B": "Ensuring data integrity and availability through backups", "C": "Configuring and managing network ACLs for your RDS instance", "D": "Applying security patches to the underlying operating system"}, "correct": ["D"], "multi": false, "explanation": "AWS fully manages OS-level patching for managed services like RDS. Monitoring requires customer-configured dashboards/alerts. Backups are automated by RDS but retention/strategy is the customer's responsibility. Network ACLs are VPC-level, managed by the customer. — This exact shared-responsibility question about RDS backups/patching came up on THREE separate attempts; it's worth memorizing cold: AWS = OS patching & physical infra; you = monitoring, backup configuration, and network access control."}, {"domain": "tech", "source": "Cloud Technology and Services", "text": "A mobile development team wants to ensure their app works correctly across a variety of real devices (different Android/iOS models) without maintaining a physical device lab. Which AWS service should they use for automated and manual testing on real cloud-hosted devices?", "options": {"A": "AWS Device Farm", "B": "AWS Amplify", "C": "AWS AppSync", "D": "Amazon AppStream 2.0"}, "correct": ["A"], "multi": false, "explanation": "AWS Device Farm tests mobile/web apps on real physical devices hosted in AWS, supporting manual and automated (Appium, Espresso, etc.) testing. Amplify is for building/deploying full-stack apps. AppSync is for real-time GraphQL APIs. AppStream 2.0 streams desktop applications, not device testing."}, {"domain": "concepts", "source": "Cloud Technology and Services", "text": "Your company is launching a global e-commerce platform and wants fast access worldwide plus high availability that tolerates failures across physical locations. Which AWS infrastructure components should the company use?", "options": {"A": "AWS Local Zones", "B": "AWS Regions", "C": "AWS Outposts", "D": "AWS Availability Zones", "E": "AWS Direct Connect"}, "correct": ["B", "D"], "multi": true, "explanation": "AWS Regions let you deploy close to users globally and support disaster recovery. Availability Zones are isolated locations within a Region with independent power/cooling, enabling fault tolerance/high availability. Local Zones only help a specific metro area, not global reach. Outposts extend AWS on-premises, not for global latency/availability. Direct Connect is a dedicated on-prem-to-AWS network link, not related to global reach/HA."}, {"domain": "billing", "source": "Billing, Pricing, and Support", "text": "Which statement is correct regarding AWS Trusted Advisor checks available to AWS Business Support customers vs AWS Developer Support customers?", "options": {"A": "AWS Business Support customers get 'Full set of checks' and AWS Developer Support customers get 'Service Quota and basic Security checks'.", "B": "AWS Business Support customers get access to 6 security checks along with 50 service limit checks and AWS Developer Support customers get access to all 115 Trusted Advisor checks", "C": "AWS Business Support customers and AWS Developer Support customers both get access to all 115 Trusted Advisor checks", "D": "None of the above"}, "correct": ["A"], "multi": false, "explanation": "AWS Developer Support gets Service Quota and basic Security checks; Business Support gets the full set of Trusted Advisor checks (categories: cost optimization, performance, security, fault tolerance, service limits)."}, {"domain": "billing", "source": "Billing, Pricing, and Support", "text": "You want to store a large amount of data (images/documents) in Amazon S3 and need to understand what actions cost money. Which actions result in charges from S3?", "options": {"A": "While uploading data to an S3 bucket", "B": "Lifecycle transition requests", "C": "Outbound data transfer from S3 in US-West to an EC2 instance in US-West", "D": "Outbound data transfer to Amazon CloudFront", "E": "Outbound data transfer from S3 in US-East to an EC2 instance in US-West"}, "correct": ["B", "E"], "multi": true, "explanation": "Uploading data into S3 (from internet) is free. Lifecycle transitions between storage classes are billed as GET/PUT operations. Same-region outbound transfer (S3 to EC2, same region) is free. Data transferred to CloudFront (as origin fetch) is free. Cross-region outbound transfer (S3 US-East to EC2 US-West) does incur charges."}, {"domain": "billing", "source": "Billing, Pricing, and Support", "text": "Your company's finance team wants to monitor how much the company has spent on AWS services in the last three months and view usage trends through visual graphs. Which AWS tool should they use?", "options": {"A": "AWS Cost Explorer", "B": "AWS Billing Dashboard", "C": "AWS Budgets", "D": "AWS Cost and Usage Report"}, "correct": ["A"], "multi": false, "explanation": "Cost Explorer provides interactive graphs/charts of cost and usage trends with forecasting. Billing Dashboard is just a high-level invoice summary, no interactive trend graphs. Budgets is for spending limits/alerts, not trend visualization. CUR provides raw detailed billing data (CSV to S3), not built-in visualization."}, {"domain": "billing", "source": "Billing, Pricing, and Support", "text": "Your company operates multiple AWS accounts across global branches. Leadership wants centralized billing, governance via Service Control Policies (SCPs), and an automated way to create new accounts. Which AWS service best meets these needs?", "options": {"A": "AWS Control Tower", "B": "AWS Organizations", "C": "AWS CloudFormation", "D": "AWS Resource Groups"}, "correct": ["B"], "multi": false, "explanation": "AWS Organizations provides centralized account management, consolidated billing, and SCP-based governance, plus automated account creation via API/CLI. Control Tower builds on Organizations for guardrails/landing zones but doesn't itself provide the full billing/policy management described. CloudFormation is IaC, unrelated to governance/billing. Resource Groups organizes resources within an account, not account-level governance."}, {"domain": "billing", "source": "Billing, Pricing, and Support", "text": "A startup is planning to deploy multiple applications on AWS and needs to estimate overall costs before committing. Which AWS service should they use to calculate the total cost for all planned resources?", "options": {"A": "AWS Cost Explorer", "B": "AWS Pricing Calculator", "C": "AWS Budgets", "D": "AWS Trusted Advisor"}, "correct": ["B"], "multi": false, "explanation": "AWS Pricing Calculator estimates costs before deployment, modeling multiple services and forecasting monthly/upfront costs. Cost Explorer analyzes historical usage (not for unlaunched workloads). Budgets sets spending thresholds/alerts, not cost estimation. Trusted Advisor optimizes existing infrastructure, not pre-deployment cost forecasting."}, {"domain": "billing", "source": "Billing, Pricing, and Support", "text": "Your company is moving several apps into a single AWS account. You want to track how much each app costs to run in AWS. What's the best way to set this up?", "options": {"A": "Use Cost Explorer", "B": "Implement Cost Allocation Tags", "C": "Enable AWS Budgets", "D": "Set up CloudWatch Alarms"}, "correct": ["B"], "multi": false, "explanation": "Cost Allocation Tags label resources so billing tools can break down costs by application/project — the most effective way to track per-app costs in a shared account. Cost Explorer can't group by app unless resources are already tagged. Budgets sets thresholds/alerts but doesn't do tagging/breakdown. CloudWatch Alarms monitor performance metrics, not billing costs."}, {"domain": "concepts", "source": "Billing, Pricing, and Support", "text": "Your company has several teams using separate AWS accounts under a single AWS Organization. One team purchased Reserved Instances (RIs) to save on EC2 costs. You want the cost savings to benefit other teams too. With Consolidated Billing already enabled, how will AWS handle the RI discounts across accounts?", "options": {"A": "RI discounts are applied only to the account that purchased the Reserved Instances", "B": "RI discounts are valid only within the same AWS Region where they were purchased", "C": "RI discounts are automatically applied across all eligible member accounts in the organization", "D": "RI discounts require you to configure sharing settings manually between accounts"}, "correct": ["C"], "multi": false, "explanation": "AWS automatically shares RI discounts across all linked accounts in an Organization with consolidated billing enabled, as long as instance attributes match (region, instance type, tenancy, platform) — no manual configuration is required."}, {"domain": "concepts", "source": "Cloud Concepts", "text": "Which of the below-listed design principles relates to the “Operational Excellence” pillar of the Well-Architected framework?", "options": {"A": "Implement a strong identity foundation", "B": "Enable traceability", "C": "Anticipate Failure", "D": "Manage change in automation", "E": "Perform operations as code"}, "correct": ["C", "D", "E"], "multi": true, "explanation": "Anticipate Failure, Manage change in automation, and Perform operations as code are Operational Excellence principles (proactive failure planning, automated/repeatable change management, treating ops as version-controlled code). “Implement a strong identity foundation” and “Enable traceability” both belong to the Security pillar instead."}, {"domain": "concepts", "source": "Cloud Concepts", "text": "A company is designing a system that must automatically scale during peak traffic and recover quickly from failures such as server crashes or network interruptions. Which AWS Well-Architected Framework pillar should the solution primarily align with?", "options": {"A": "Security", "B": "Reliability", "C": "Performance Efficiency", "D": "Cost Optimization"}, "correct": ["B"], "multi": false, "explanation": "The Reliability pillar covers recovering from failures, dynamically acquiring resources to meet demand, and mitigating disruptions (auto scaling, Multi-AZ, failover). Performance Efficiency is about using resources efficiently (choosing instance types), not fault recovery. Security is about protecting data/access. Cost Optimization is about minimizing spend."}, {"domain": "tech", "source": "Free Test", "text": "A developer working on enhancing applications in AWS requires a secure Git-based repository hosting solution that integrates well with AWS services for CI/CD. Which of the following is the best approach?", "options": {"A": "Use GitHub and integrate with AWS CodePipeline", "B": "Use AWS CodeStar to host Git repositories", "C": "Use Amazon CodeGuru for Git-based version control", "D": "Use AWS CodePipeline to host Git repositories"}, "correct": ["A"], "multi": false, "explanation": "AWS CodeCommit is no longer available to new customers, so GitHub is the standard secure Git-based repo option, and it integrates with AWS CodePipeline to trigger builds/tests/deployments — a complete CI/CD workflow. CodeStar helps scaffold/deploy apps but isn't a repo host. CodeGuru is an ML-powered code review tool, not version control. CodePipeline itself is a release-automation tool, not a Git repo host."}, {"domain": "tech", "source": "Free Test", "text": "Your team is using AWS IQ to find an expert for an AWS-related project. In which scenario would it be inappropriate to leverage AWS IQ?", "options": {"A": "Asking for assistance with migrating an on-premises database to Amazon Aurora", "B": "Seeking guidance on AWS best practices for securing S3 buckets", "C": "Hiring a certified AWS professional to conduct on-site training for your team", "D": "Searching for an expert to review and optimize your AWS Lambda functions", "E": "Looking for a freelance developer to build a mobile application outside the AWS environment"}, "correct": ["E"], "multi": false, "explanation": "AWS IQ connects customers with AWS-certified experts specifically for AWS-related projects. Options A, B, C, and D are all AWS-related (Aurora migration, S3 security, AWS training, Lambda optimization). Building a mobile app with no AWS infrastructure involved falls outside AWS IQ's scope."}, {"domain": "security", "source": "Free Test", "text": "An administrator would like VPCs in three different AWS accounts to access on-premise resources via a VPN connection terminating on a Transit Gateway. Each of the VPCs is in distinct AWS regions. How can this be achieved?", "options": {"A": "Use AWS Resource Access Manager (RAM) to share the Transit Gateway resource.", "B": "Configure a Virtual Private Gateway (VGW) for each VPC and then extend the VPN tunnels to them.", "C": "Create VPC attachments from each of the VPCs to the Transit Gateway.", "D": "Configure VPC peering connections between the VPCs and route traffic from on-premise through the VPN to the Transit Gateway and then to each VPC peer."}, "correct": ["A"], "multi": false, "explanation": "AWS Resource Access Manager (RAM) lets you share a Transit Gateway across multiple AWS accounts, even across regions, so each account's VPC can attach to and use the shared Transit Gateway. VPN tunnels can't simply be “extended” to separate VGWs (B). VPC attachments require the Transit Gateway to already be shared (C) — sharing has to happen first. Transitive routing through VPC peering (D) is not supported in AWS."}, {"domain": "security", "source": "Security", "text": "A financial services company is running its core application on Amazon RDS for PostgreSQL. The IT team wants to ensure that regular backups are created in case of data loss or corruption. Based on the AWS Shared Responsibility Model, who is responsible for managing and configuring database backups?", "options": {"A": "AWS is solely responsible for automatically backing up the database", "B": "The customer is solely responsible for configuring and managing database backups", "C": "AWS provides automated backup capabilities, but the customer is responsible for configuring and managing them", "D": "AWS and the customer share equal responsibility for database backups"}, "correct": ["C"], "multi": false, "explanation": "AWS provides the automated backup engine/infrastructure for RDS, but the customer must enable backups, set the retention period (up to 35 days), and manage snapshots/restore testing. AWS isn't “solely” responsible (backups aren't fully hands-off), the customer isn't “solely” responsible either (AWS provides the tooling), and it's not an equal 50/50 split — it's asymmetric. This exact concept (RDS backup responsibility) tripped you up on more than one attempt — worth extra review."}, {"domain": "security", "source": "Security", "text": "A company is hiring a third-party contractor to perform a security audit on its AWS environment. The contractor should only have temporary access to specific AWS services during the duration of the audit. Which IAM solution is the most appropriate for granting this type of limited-time, scoped access?", "options": {"A": "IAM Group Policy", "B": "IAM User Policy", "C": "IAM Role with Temporary Credentials", "D": "IAM Permissions Boundary"}, "correct": ["C"], "multi": false, "explanation": "IAM Roles delegate access via temporary security credentials (through AWS STS) — ideal for third parties or time-bound access. Group/User Policies create persistent, long-term credentials/permissions (bad practice for contractors). Permissions Boundaries restrict the maximum permissions an identity can have but don't grant temporary access themselves."}, {"domain": "security", "source": "Security", "text": "A technology company operates multiple AWS accounts for different departments (Finance, Engineering, Marketing). They want a centralized way to manage user access across all these AWS accounts and integrate with corporate applications like Microsoft 365, including single sign-on (SSO) and automated user provisioning. Which AWS service should they use?", "options": {"A": "AWS Identity and Access Management (IAM)", "B": "AWS Directory Service", "C": "IAM Identity Center", "D": "AWS Organizations"}, "correct": ["C"], "multi": false, "explanation": "IAM Identity Center provides centralized access management across multiple AWS accounts, integrates with external identity providers (Azure AD, Okta, etc.), and supports SSO plus automated provisioning. IAM alone is single-account only. Directory Service connects to on-prem AD for Windows workloads but has no multi-account SSO. AWS Organizations manages billing/account structure and SCPs, not identity/SSO."}, {"domain": "security", "source": "Security", "text": "A security team at a startup discovered that several users have more permissions than they need. The team wants to analyze existing IAM policies to get clear, actionable insights to tighten permissions and follow least privilege. Which AWS service should the team use?", "options": {"A": "AWS IAM Access Analyzer", "B": "AWS CloudTrail", "C": "AWS Config", "D": "Amazon Inspector"}, "correct": ["A"], "multi": false, "explanation": "IAM Access Analyzer analyzes IAM policies using logic-based reasoning, flags public/cross-account access, and gives actionable recommendations toward least privilege. CloudTrail logs API activity (who did what), not policy analysis. AWS Config tracks resource configuration compliance, not IAM permission analysis specifically. Amazon Inspector scans EC2/container workloads for vulnerabilities, not IAM policies."}, {"domain": "security", "source": "Security", "text": "A healthcare company is running sensitive workloads on Amazon EC2 instances in a private subnet. Due to strict compliance and security policies, the company wants to avoid using SSH ports or managing SSH keys for administrator access. What is the most secure and scalable AWS-native solution to remotely access and manage EC2 instances without opening any inbound ports?", "options": {"A": "AWS Systems Manager Session Manager", "B": "Amazon EC2 Key Pairs", "C": "AWS VPN Gateway", "D": "AWS Direct Connect"}, "correct": ["A"], "multi": false, "explanation": "Session Manager provides secure shell/CLI access over HTTPS without opening port 22 or managing SSH keys, with IAM-based access control and CloudTrail logging — ideal for compliance-sensitive environments. Key Pairs require SSH (port 22) and key management. VPN Gateway and Direct Connect provide network connectivity to AWS but don't themselves grant instance-level access or remove the need for SSH/Session Manager."}, {"domain": "security", "source": "Security", "text": "A video-on-demand platform's architecture (EC2 web servers, Lambda for user interactions, DynamoDB for activity data) is getting overwhelmed due to tight coupling as users grow. Which AWS service should they use to decouple these components for better scalability and reliability?", "options": {"A": "Amazon SQS", "B": "AWS Step Functions", "C": "Amazon CloudFront", "D": "Amazon SNS"}, "correct": ["A"], "multi": false, "explanation": "SQS buffers messages between components so they communicate asynchronously — senders and processors don't need to wait on each other, improving scalability/reliability. Step Functions orchestrates a defined workflow sequence, not general async decoupling. CloudFront is a CDN for content delivery, unrelated to backend decoupling. SNS is pub/sub for real-time fan-out notification but doesn't retain/buffer messages like SQS does."}, {"domain": "security", "source": "Security", "text": "Your organization must track configuration changes across AWS resources, maintain historical records of resource states, and support compliance auditing. Which AWS service is best suited?", "options": {"A": "Amazon CloudWatch", "B": "AWS CloudTrail", "C": "AWS Config", "D": "AWS Audit Manager"}, "correct": ["C"], "multi": false, "explanation": "AWS Config continuously tracks resource configuration changes, keeps historical state records, and evaluates against compliance rules (Config Rules, conformance packs) — purpose-built for this. CloudWatch is for real-time operational metrics/alarms, not configuration history. CloudTrail logs API/user activity (who did what) but not before/after configuration state. Audit Manager automates evidence collection for audits but relies on data from Config/CloudTrail rather than tracking configuration itself."}, {"domain": "security", "source": "Security", "text": "Your compliance team asks you to rotate the access keys for the AWS account's root user. In AWS IAM, who is authorized to create, rotate, or delete the root user's access keys?", "options": {"A": "Only the root user", "B": "Any IAM user with administrator permissions", "C": "IAM roles assigned with full access", "D": "The AWS Support team"}, "correct": ["A"], "multi": false, "explanation": "Only the root user identity itself can manage root user access keys — no IAM admin, role, or AWS Support can view or modify root credentials, regardless of their permissions. AWS best practice: avoid creating root access keys at all."}, {"domain": "security", "source": "Security", "text": "A company has multiple AWS accounts and wants to apply consistent permissions across several accounts by reusing an IAM policy from one account to another. What is the best way to achieve this?", "options": {"A": "Use policy inheritance to apply the same policy across accounts", "B": "Use policy nesting to combine policies across accounts", "C": "Use IAM roles and trust policies for cross-account access", "D": "Use IAM group nesting to share policies across accounts"}, "correct": ["C"], "multi": false, "explanation": "AWS supports cross-account access via IAM roles + trust policies — not through policy inheritance or nesting, neither of which IAM supports. Each account maintains its own separate policies/groups; roles with trust policies are the mechanism for secure cross-account access."}];
+
+  var DOMAIN_META = {
+    concepts: {label:'Cloud Concepts', varName:'--domain-concepts', softVar:'--domain-concepts-soft'},
+    security: {label:'Security & Compliance', varName:'--domain-security', softVar:'--domain-security-soft'},
+    tech:     {label:'Cloud Technology & Services', varName:'--domain-tech', softVar:'--domain-tech-soft'},
+    billing:  {label:'Billing, Pricing & Support', varName:'--domain-billing', softVar:'--domain-billing-soft'}
+  };
+  var DOMAIN_ORDER = ['tech','security','billing','concepts'];
+
+  var SOURCE_TESTS = [
+    {name:'Cloud Technology and Services', score:'10/18', pct:'55.56%', date:'Jul 19, 2026'},
+    {name:'Billing, Pricing, and Support', score:'10/17', pct:'58.82%', date:'Sep 14, 2026'},
+    {name:'Cloud Concepts', score:'13/15', pct:'86.67%', date:'Jun 30, 2026'},
+    {name:'Free Test', score:'12/20', pct:'60.00%', date:'May 29, 2026'},
+    {name:'Security', score:'9/20', pct:'45.00%', date:'Jul 16, 2026'}
+  ];
+
+  function letters(n){ return ['A','B','C','D','E'].slice(0,n); }
+
+  function loadLocal(key, fallback){
+    try{
+      var v = JSON.parse(localStorage.getItem(key));
+      return v == null ? fallback : v;
+    }catch(e){ return fallback; }
+  }
+  function saveLocal(key, val){
+    try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){}
+  }
+
+  var state = {
+    view: 'report',
+    activeDomains: loadLocal('c02_active_domains', DOMAIN_ORDER.slice()),
+    shuffle: loadLocal('c02_shuffle', true),
+    quiz: null // {ids:[], idx, answers:{}, correctCount}
+  };
+
+  var app = document.getElementById('app');
+
+  function shuffleArr(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function domainCounts(){
+    var counts = {};
+    DOMAIN_ORDER.forEach(function(d){ counts[d] = 0; });
+    QUESTIONS.forEach(function(q){ counts[q.domain] = (counts[q.domain]||0) + 1; });
+    return counts;
+  }
+
+  function fmtPct(n, d){
+    if (d === 0) return '0%';
+    return Math.round((n/d)*100) + '%';
+  }
+
+  // ---------------- REPORT VIEW ----------------
+  function renderReport(){
+    var counts = domainCounts();
+    var maxCount = Math.max.apply(null, DOMAIN_ORDER.map(function(d){return counts[d];}));
+    var last = loadLocal('c02_last_attempt', null);
+
+    var html = '';
+    html += '<div class="masthead">';
+    html += '  <div class="eyebrow">AWS Certified Cloud Practitioner &middot; CLF-C02</div>';
+    html += '  <h1>Second Pass</h1>';
+    html += '  <p>Every question you missed across five Whizlabs practice attempts, pulled into one deck. ' + QUESTIONS.length + ' questions total &mdash; pick your domains below and work through them again.</p>';
+    if (last){
+      html += '  <p class="muted tabular" style="font-size:13px;">Last attempt: ' + last.correct + '/' + last.total + ' (' + fmtPct(last.correct,last.total) + ') on ' + last.date + '</p>';
+    }
+    html += '</div>';
+
+    // source report
+    html += '<div class="card"><h2>Where these came from</h2><div class="card-sub">Your Whizlabs CLF-C02 practice test history</div>';
+    html += '<div class="overflow-x"><table class="report"><thead><tr><th>Test</th><th>Score</th><th>Result</th><th>Date</th></tr></thead><tbody>';
+    SOURCE_TESTS.forEach(function(t){
+      html += '<tr><td>' + t.name + '</td><td class="num">' + t.score + ' &middot; ' + t.pct + '</td><td class="num">' + (parseFloat(t.pct) >= 70 ? 'Pass' : 'Fail') + '</td><td class="num">' + t.date + '</td></tr>';
+    });
+    html += '</tbody></table></div></div>';
+
+    // domain breakdown
+    html += '<div class="card"><h2>Missed questions by domain</h2><div class="card-sub">' + QUESTIONS.length + ' questions across 4 exam domains</div>';
+    DOMAIN_ORDER.forEach(function(d){
+      var meta = DOMAIN_META[d];
+      var c = counts[d];
+      var w = maxCount ? Math.max(6, Math.round((c/maxCount)*100)) : 0;
+      html += '<div class="domain-row">';
+      html += '  <span class="domain-dot" style="background:var(' + meta.varName + ')"></span>';
+      html += '  <span class="domain-name">' + meta.label + '</span>';
+      html += '  <span class="domain-bar-track"><span class="domain-bar-fill" style="width:' + w + '%;background:var(' + meta.varName + ')"></span></span>';
+      html += '  <span class="domain-count">' + c + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    // filters + start
+    html += '<div class="card">';
+    html += '  <h2>Build your review</h2><div class="card-sub">Choose which domains to include</div>';
+    html += '  <div class="chip-row" id="domainChips">';
+    DOMAIN_ORDER.forEach(function(d){
+      var meta = DOMAIN_META[d];
+      var active = state.activeDomains.indexOf(d) !== -1;
+      html += '<button type="button" class="chip' + (active?' active':'') + '" data-domain="' + d + '" role="checkbox" aria-checked="' + active + '">';
+      html += '<span class="domain-dot" style="background:var(' + meta.varName + ')"></span>' + meta.label + ' &middot; ' + counts[d];
+      html += '</button>';
+    });
+    html += '  </div>';
+    html += '  <div style="height:16px"></div>';
+    html += '  <div class="option-row">';
+    html += '    <div class="toggle-row"><button type="button" class="switch' + (state.shuffle?' on':'') + '" id="shuffleToggle" role="switch" aria-checked="' + state.shuffle + '"></button> Shuffle question order</div>';
+    html += '  </div>';
+    html += '  <div style="height:18px"></div>';
+    html += '  <button type="button" class="primary" id="startBtn" style="width:100%;">Start review &rarr;</button>';
+    html += '</div>';
+
+    app.innerHTML = html;
+
+    document.getElementById('domainChips').addEventListener('click', function(e){
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      var d = chip.getAttribute('data-domain');
+      var idx = state.activeDomains.indexOf(d);
+      if (idx === -1){
+        if (state.activeDomains.length < DOMAIN_ORDER.length) state.activeDomains.push(d);
+      } else {
+        if (state.activeDomains.length > 1) state.activeDomains.splice(idx,1);
+      }
+      saveLocal('c02_active_domains', state.activeDomains);
+      renderReport();
+    });
+
+    document.getElementById('shuffleToggle').addEventListener('click', function(){
+      state.shuffle = !state.shuffle;
+      saveLocal('c02_shuffle', state.shuffle);
+      renderReport();
+    });
+
+    document.getElementById('startBtn').addEventListener('click', startQuiz);
+  }
+
+  // ---------------- QUIZ VIEW ----------------
+  function startQuiz(onlyIds){
+    var pool = onlyIds ? onlyIds.slice() :
+      QUESTIONS.map(function(q,i){return i;}).filter(function(i){
+        return state.activeDomains.indexOf(QUESTIONS[i].domain) !== -1;
+      });
+    if (state.shuffle) pool = shuffleArr(pool);
+    state.quiz = { ids: pool, idx: 0, correctCount: 0, missed: [], answered:false, selection:[] };
+    state.view = 'quiz';
+    renderQuiz();
+  }
+
+  function currentQ(){
+    return QUESTIONS[state.quiz.ids[state.quiz.idx]];
+  }
+
+  function renderQuiz(){
+    var quiz = state.quiz;
+    var q = currentQ();
+    var meta = DOMAIN_META[q.domain];
+    var total = quiz.ids.length;
+    var num = quiz.idx + 1;
+    var pct = Math.round((quiz.idx / total) * 100);
+
+    var html = '';
+    html += '<button type="button" class="link quiz-exit" id="exitBtn">&larr; back to report</button>';
+    html += '<div class="quiz-topbar">';
+    html += '  <span class="domain-tag" style="background:var(' + meta.softVar + ');color:var(' + meta.varName + ')">' + meta.label + '</span>';
+    html += '  <span class="quiz-progress-track"><span class="quiz-progress-fill" style="width:' + pct + '%"></span></span>';
+    html += '  <span class="quiz-score tabular">' + quiz.correctCount + '/' + quiz.idx + '</span>';
+    html += '</div>';
+
+    html += '<div class="card">';
+    html += '  <div class="eyebrow" style="margin-bottom:10px;">Question ' + num + ' of ' + total + (q.multi ? ' &middot; select ' + q.correct.length : '') + '</div>';
+    html += '  <div class="q-text" style="margin-bottom:18px;">' + q.text + '</div>';
+    html += '  <div id="optionsList" style="display:flex;flex-direction:column;gap:9px;">';
+    Object.keys(q.options).forEach(function(letter){
+      html += renderOption(q, letter, false);
+    });
+    html += '  </div>';
+    html += '  <div id="explainSlot" style="margin-top:16px;"></div>';
+    html += '  <div class="quiz-actions" style="margin-top:18px;">';
+    html += '    <button type="button" class="primary" id="submitBtn" disabled>Check answer</button>';
+    html += '    <button type="button" class="primary" id="nextBtn" hidden>' + (num === total ? 'See results' : 'Next question') + ' &rarr;</button>';
+    html += '  </div>';
+    html += '</div>';
+
+    app.innerHTML = html;
+
+    document.getElementById('exitBtn').addEventListener('click', function(){
+      state.view = 'report'; renderReport();
+    });
+
+    var selection = [];
+    var optionsList = document.getElementById('optionsList');
+    optionsList.addEventListener('click', function(e){
+      if (quiz.answered) return;
+      var opt = e.target.closest('.option');
+      if (!opt) return;
+      var letter = opt.getAttribute('data-letter');
+      if (q.multi){
+        var i = selection.indexOf(letter);
+        if (i === -1) selection.push(letter); else selection.splice(i,1);
+      } else {
+        selection = [letter];
+      }
+      Object.keys(q.options).forEach(function(l){
+        var el = optionsList.querySelector('[data-letter="'+l+'"]');
+        var checked = selection.indexOf(l) !== -1;
+        el.classList.toggle('selected', checked);
+        el.querySelector('input').checked = checked;
+      });
+      document.getElementById('submitBtn').disabled = selection.length === 0;
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', function(){
+      quiz.answered = true;
+      quiz.selection = selection;
+      var correctSet = q.correct.slice().sort();
+      var selSet = selection.slice().sort();
+      var isCorrect = JSON.stringify(correctSet) === JSON.stringify(selSet);
+      if (isCorrect) quiz.correctCount++; else quiz.missed.push(quiz.ids[quiz.idx]);
+
+      Object.keys(q.options).forEach(function(letter){
+        var el = optionsList.querySelector('[data-letter="'+letter+'"]');
+        var input = el.querySelector('input');
+        input.disabled = true;
+        el.classList.add('locked');
+        var isSel = selection.indexOf(letter) !== -1;
+        var isRight = q.correct.indexOf(letter) !== -1;
+        var mark = el.querySelector('.mark');
+        if (isRight){ el.classList.add('reveal-correct'); mark.textContent = 'CORRECT'; }
+        else if (isSel && !isRight){ el.classList.add('reveal-incorrect'); mark.textContent = 'YOUR PICK'; }
+      });
+
+      var explainSlot = document.getElementById('explainSlot');
+      explainSlot.innerHTML =
+        '<div class="explain ' + (isCorrect?'ok':'no') + '">' +
+        '<span class="verdict">' + (isCorrect ? 'Correct' : 'Incorrect — correct answer: ' + q.correct.join(', ')) + '</span>' +
+        q.explanation +
+        '</div>';
+
+      document.getElementById('submitBtn').hidden = true;
+      document.getElementById('nextBtn').hidden = false;
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function(){
+      if (quiz.idx + 1 < quiz.ids.length){
+        quiz.idx++;
+        quiz.answered = false;
+        renderQuiz();
+      } else {
+        finishQuiz();
+      }
+    });
+  }
+
+  function renderOption(q, letter, locked){
+    var text = q.options[letter];
+    var inputType = q.multi ? 'checkbox' : 'radio';
+    var html = '<label class="option" data-letter="' + letter + '">';
+    html += '<input type="' + inputType + '" name="opt" tabindex="-1" style="pointer-events:none;">';
+    html += '<span class="opt-letter">' + letter + '</span>';
+    html += '<span style="flex:1;">' + text + '</span>';
+    html += '<span class="mark"></span>';
+    html += '</label>';
+    return html;
+  }
+
+  function finishQuiz(){
+    var quiz = state.quiz;
+    saveLocal('c02_last_attempt', {correct:quiz.correctCount, total:quiz.ids.length, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})});
+
+    var byDomain = {};
+    DOMAIN_ORDER.forEach(function(d){ byDomain[d] = {correct:0,total:0}; });
+    quiz.ids.forEach(function(id){
+      var q = QUESTIONS[id];
+      byDomain[q.domain].total++;
+      if (quiz.missed.indexOf(id) === -1) byDomain[q.domain].correct++;
+    });
+
+    var html = '';
+    html += '<div class="masthead" style="align-items:flex-start;">';
+    html += '  <div class="eyebrow">Review complete</div>';
+    html += '  <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">';
+    html += '    <span class="score-big tabular">' + quiz.correctCount + '/' + quiz.ids.length + '</span>';
+    html += '    <span class="score-pct">' + fmtPct(quiz.correctCount, quiz.ids.length) + ' this pass</span>';
+    html += '  </div>';
+    html += '  <p>' + (quiz.missed.length === 0 ? 'Clean sweep — every question in this set, right.' : quiz.missed.length + ' question' + (quiz.missed.length===1?'':'s') + ' still need another look.') + '</p>';
+    html += '</div>';
+
+    html += '<div class="card"><h2>By domain</h2>';
+    DOMAIN_ORDER.forEach(function(d){
+      var b = byDomain[d];
+      if (b.total === 0) return;
+      var meta = DOMAIN_META[d];
+      html += '<div class="domain-row">';
+      html += '<span class="domain-dot" style="background:var('+meta.varName+')"></span>';
+      html += '<span class="domain-name">' + meta.label + '</span>';
+      html += '<span class="quiz-score tabular">' + b.correct + '/' + b.total + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    if (quiz.missed.length > 0){
+      html += '<div class="card"><h2>Missed this pass</h2><div class="card-sub">Flagged for another round</div>';
+      html += '<div style="display:flex;flex-direction:column;gap:8px;">';
+      quiz.missed.forEach(function(id){
+        var q = QUESTIONS[id];
+        var meta = DOMAIN_META[q.domain];
+        html += '<div class="missed-item"><span class="domain-dot" style="background:var('+meta.varName+')"></span><span>' + q.text.slice(0,140) + (q.text.length>140?'…':'') + '</span></div>';
+      });
+      html += '</div></div>';
+    }
+
+    html += '<div style="display:flex;gap:10px;flex-wrap:wrap;">';
+    if (quiz.missed.length > 0){
+      html += '<button type="button" class="primary" id="retryMissedBtn">Retry the ' + quiz.missed.length + ' missed &rarr;</button>';
+    }
+    html += '  <button type="button" class="secondary" id="restartBtn">Start over</button>';
+    html += '  <button type="button" class="secondary" id="backBtn">Back to report</button>';
+    html += '</div>';
+
+    app.innerHTML = html;
+
+    var retryBtn = document.getElementById('retryMissedBtn');
+    if (retryBtn){
+      retryBtn.addEventListener('click', function(){ startQuiz(quiz.missed); });
+    }
+    document.getElementById('restartBtn').addEventListener('click', function(){ startQuiz(); });
+    document.getElementById('backBtn').addEventListener('click', function(){ state.view='report'; renderReport(); });
+  }
+
+  function boot(){
+    renderReport();
+  }
+
+  if (window.claude && window.claude.hot){
+    window.claude.hot.ready ? window.claude.hot.ready(boot) : boot();
+  } else {
+    boot();
+  }
+})();
+</script>
+
+</body>
+</html>
