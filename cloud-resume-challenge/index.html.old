@@ -55,13 +55,13 @@
        <div class="section__list">
         <div class="section__list-item">
           <div class="name">Forrest Brazeal's Cloud Resume Challenge</div>
-            <div class="tagline">AWS-based full-stack serverless project, rebuilt with Terraform IaC</div>
+            <div class="tagline">AWS-based full-stack serverless coding project for cloud newbies</div>
             <div class="text">
                 <ul>
-                  <li>HTML, CSS, and JavaScript front end hosted on S3, served through CloudFront with WAF</li>
-                  <li>Serverless visitor-counter API built with API Gateway, Lambda, and DynamoDB</li>
-                  <li>Entire infrastructure defined and deployed as code with Terraform</li>
-                  <li>CI/CD pipeline automated with GitHub Actions</li>
+                  <li>HTML, CSS, JavaScript hosted on S3</li>
+                  <li>Amazon Web Services, AWS Serverless Application Model and API Gateway for visitor counter</li>
+                  <li>Lambda, DynamoDB, API Gateway, S3, Route53, Certificate Manager</li>
+                  <li>GitHub repository with Actions for CI/CD automation using the SAM CLI tool</li>            
                 </ul>
             </div>
         </div>
@@ -86,24 +86,16 @@
           <div class="section__title">Skills</div>
           <div class="section__list">
             <div class="section__list-item">
-              <div class="name">Cloud Technologies:</div>
-              <div class="addr">AWS (EC2, VPC, Lambda, IAM, S3, DynamoDB, Route 53, CloudWatch), Microsoft Azure</div>
+              <div class="name">AWS:</div>
+              <div class="addr">EC2, VPC, Lambda, ECS, IAM, RDS, DynamoDB, S3, Route 53, Cloudfront, API Gateway, SNS</div>
             </div>
             <div class="section__list-item">
-              <div class="name">Networking & Security:</div>
-              <div class="addr">Active Directory, Zero Trust Architecture, VPN, LAN/WAN, TCP/IP, DHCP, DNS, NFS, Firewalls, Load Balancing, VoIP Systems, SSL/TLS</div>
+              <div class="name">Languages:</div>
+              <div class="addr">Python, Bash, YAML, HTML/CSS</div>
             </div>
             <div class="section__list-item">
-              <div class="name">System Administration:</div>
-              <div class="addr">Linux, Microsoft Windows Server, Office 365, Mobile Device Management, NAS/SAN Management, Patch Management, Server Monitoring</div>
-            </div>
-            <div class="section__list-item">
-              <div class="name">Infrastructure Automation & DevOps:</div>
-              <div class="addr">Terraform, CloudFormation, Git, GitHub Actions, Bash, PowerShell, Python</div>
-            </div>
-            <div class="section__list-item">
-              <div class="name">ITSM:</div>
-              <div class="addr">ServiceNow, ConnectWise, Spiceworks, Kaseya, ITIL Framework, Incident Management</div>
+              <div class="name">Tools:</div>
+              <div class="addr">Terraform, Git, GitHub Actions, Docker, Bootstrap</div>
             </div>
           </div>
         </div>
@@ -124,6 +116,7 @@
             <div class="name"> CompTIA Security+ ce Certification</div>
             <div class="text"> March 1, 2026</div>
             <div class="text"> Follow link to validate - <a href="https://www.credly.com/badges/032bd875-48d4-47e2-ba74-ebef82cc4fc0/public_url">Validate here</a></div>
+            <!--added 3/1/2023-->
         </div>
        </div>
 
@@ -133,62 +126,27 @@
       <div class="section__title">Work Experience</div>
       <div class="section__list">
         <div class="section__list-item">
-            <div class="name">Infrastructure Delivery Engineer</div>
-            <div class="addr">AWS<span class="separator"></span>Reston, VA</div>
-              <div class="tagline">April 2026 - Present</div>
+            <div class="name">Cloud Systems Analyst</div>
+            <div class="addr">Office of the Inspector General, State Department<span class="header separator"></span>Washington DC</div>
+              <div class="tagline">November 2021 - Present</div>
             <div class="desc">
                 <ul>
-                    <li>Install and configure enterprise-grade network infrastructure across AWS global data centers, including cabling, rack installations, and large-scale equipment deployment</li>
-                    <li>Collaborate with cross-functional teams of network engineers and hardware specialists to troubleshoot complex issues and maintain 24/7 stability and scalability</li>
-                    <li>Support data center operations across multiple facilities, including travel to active sites for training and infrastructure deployment</li>
-                </ul>
-            </div>
-          </div>
-        <div class="section__list-item">
-            <div class="name">IT & Cloud Infrastructure Manager</div>
-            <div class="addr">AIS<span class="separator"></span>Reston, VA</div>
-              <div class="tagline">Sept 2024 - June 2025</div>
-            <div class="desc">
-                <ul>
-                    <li>Owned end-to-end cloud infrastructure across AWS and Azure supporting mission-critical workloads for a 700-person cloud modernization firm</li>
-                    <li>Automated environment provisioning using Terraform, CloudFormation, and Bash, enabling repeatable, version-controlled infrastructure</li>
-                    <li>Served as escalation point during incidents, coordinating structured response across internal teams and vendors</li>
-                </ul>
-            </div>
-          </div>
-        <div class="section__list-item">
-            <div class="name">Cloud Computing Infrastructure Architect (contract)</div>
-            <div class="addr">Booz Allen Hamilton<span class="separator"></span>Remote</div>
-              <div class="tagline">Jan 2023 - Feb 2024</div>
-            <div class="desc">
-                <ul>
-                    <li>Designed and implemented highly available, fault-tolerant AWS architectures for critical business services</li>
-                    <li>Directed an enterprise cloud modernization initiative, increasing scalability by 30% and reducing total cost of ownership</li>
-                    <li>Built executive dashboards in Power BI to inform capacity planning and strategic decision-making</li>
-                </ul>
-            </div>
-          </div>
-        <div class="section__list-item">
-            <div class="name">Cloud / Data Analyst (contract)</div>
-            <div class="addr">Miracle Systems, LLC<span class="separator"></span>Remote</div>
-              <div class="tagline">Nov 2021 - Dec 2022</div>
-            <div class="desc">
-                <ul>
-                    <li>Designed and deployed scalable cloud architectures for investigation team applications supporting the Office of the Inspector General, improving response times by 25%</li>
-                    <li>Developed a disaster recovery plan protecting critical business data across multiple sites</li>
-                    <li>Led ETL processes using Power BI, reducing report generation time by 40%</li>
+                    <li>Assists in the design and management of an organization's cloud systems, applications, policies, and strategy.</li>
+                    <li>Develops and modifies scalable architecture to support applications and infrastructure on IaaS and PaaS platforms</li>
+                    <li>Created alerts and configured monitoring of specified metrics to manage cloud infrastructure efficiently</li>
                 </ul>
             </div>
           </div>
         <div class="section__list-item">
             <div class="name">Infrastructure and Compliance Manager</div>
             <div class="addr">Otis Elevator<span class="separator"></span>Florence, SC</div>
-              <div class="tagline">Dec 2014 - Nov 2021</div>
+              <div class="tagline">Dec 2014 - Oct 2021</div>
             <div class="desc">
                 <ul>
-                    <li>Led a team of 5 IT professionals managing a Fortune 500 data center with 1,000+ active VMs</li>
-                    <li>Designed and executed a scalable IT infrastructure rollout supporting rapid organizational growth</li>
-                    <li>Implemented NAS/SAN storage solutions, improving data retrieval efficiency by 25%</li>
+                    <li>Maintenaned, installation, configuration of on-premises and cloud Data Center Environment</li>
+                    <li>Developed and refinemened infrastructure and security checklists in existing environments to ensure continued compliance</li>
+                    <li>Provide project management and leadership implementing core infrastructure, network, and cloud-based services</li>
+                    <li>Monitor application and infrastructure using monitoring tools using SolarWinds, JIRA, CloudWatch and datadog</li>
                 </ul>
             </div>
           </div>
